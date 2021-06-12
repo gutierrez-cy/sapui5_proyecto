@@ -1,0 +1,87 @@
+<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:html="http://www.w3.org/1999/xhtml"
+	xmlns:l="sap.ui.layout" xmlns:form="sap.ui.layout.form" xmlns:u="sap.ui.unified" controllerName="imagina.employees.controller.CrearEmpleado">
+	<App>
+		<NavContainer id="navCon" width="100%" height="100%" class="navContainerControl sapUiSmallMarginBottom">
+			<pages>
+				<Page title="{i18n>employeeCreate}" id="EmployeeCreate">
+					<Wizard id="CreateEmployeeWizard" class="sapUiResponsivePadding--header sapUiResponsivePadding--content" complete="wizardCompletedHandler"
+						showNextButton="true">
+						<WizardStep id="ProductTypeStep" title="{i18n>EmpleadoType}" validated="false">
+							<MessageStrip class="sapUiSmallMarginBottom" text="{i18n>messageStep1}" showIcon="true"/>
+							<HBox justifyContent="Center">
+								<Button text="{i18n>interno}" press="handleNextStep">
+									<customData>
+										<core:CustomData key="typeEmployee" value="interno"></core:CustomData>
+									</customData>
+								</Button>
+								<Button text="{i18n>autonomo}" press="handleNextStep" class="sapUiSmallMarginEnd sapUiSmallMarginBegin">
+									<customData>
+										<core:CustomData key="typeEmployee" value="autonomo"></core:CustomData>
+									</customData>
+								</Button>
+								<Button text="{i18n>gerente}" press="handleNextStep">
+									<customData>
+										<core:CustomData key="typeEmployee" value="gerente"></core:CustomData>
+									</customData>
+								</Button>
+							</HBox>
+						</WizardStep>
+						<WizardStep id="EmployeeForm"
+							validated="{= ${employee>/nombre} === '' ? false : ${employee>/apellidos} === '' ? false : ${employee>/dniCif} === '' ? false : ${employee>/fechaIncorporacion} === null ? false : true}"
+							title="{i18n>empleadoDatos}" activate="additionalInfoValidation">
+							<MessageStrip class="sapUiSmallMarginBottom" text="{i18n>messageStep2}" showIcon="true"/>
+							<form:SimpleForm id="SimpleFormChange354" editable="true" layout="ResponsiveGridLayout" labelSpanXL="3" labelSpanL="3" labelSpanM="3"
+								labelSpanS="12" adjustLabelSpan="false" emptySpanXL="4" emptySpanL="4" emptySpanM="4" emptySpanS="0" columnsXL="1" columnsL="1" columnsM="1"
+								singleContainerFullSize="false">
+								<form:content>
+									<Label text="{i18n>name}" required="true"/>
+									<Input id="name" value="{employee>/nombre}" change="hadleValidacionNombre" valueState="{error>/nombreState}"/>
+									<Label text="{i18n>apellidos}" required="true"/>
+									<Input id="surname" value="{employee>/apellido}" change="hadleValidacionApellido" valueState="{error>/apellidoState}"/>
+									<Label text="{= ${employee>/tipoEmpleado} === 'autonomo' ? ${i18n>cif} : ${i18n>dni}}" required="true"/>
+									<Input id="dni" value="{employee>/dniCif}" change="handleValidacionDni" valueState="{error>/dniState}"/>
+									<Label text="{= ${employee>/tipoEmpleado} === 'autonomo' ? ${i18n>precioDiario} : ${i18n>salarioBrutoAnual}}" required="false"/>
+									<Slider value="{employee>/salario}" enableTickmarks="true" min="{slider>/min}" max="{slider>/max}" step="{slider>/step}"
+										visible="{slider>/visible}" class="sapUiMediumMarginBottom" width="100%"/>
+									<Label text="{i18n>fechaIncorporacion}" required="true"/>
+									<DatePicker id="fechaIncorporacion" dateValue="{employee>/fechaIncorporacion}" change="hadleValidacionFecha" valueState="{error>/dateState}"/>
+								</form:content>
+							</form:SimpleForm>
+						</WizardStep>
+						<WizardStep id="OptionalInfoStep" validated="true" activate="optionalStepActivation" title="{i18n>informacionAdcional}">
+							<MessageStrip class="sapUiSmallMarginBottom" text="{i18n>messageStep3}" showIcon="true"/>
+							<Label text="{i18n>comentario}" width="100%"></Label>
+							<TextArea value="{employee>/comentario}" width="100%"></TextArea>
+							<UploadCollection id="UploadCollection" maximumFilenameLength="55" maximumFileSize="10" multiple="true"
+								uploadUrl="/sap/opu/odata/sap/ZEMPLOYEES_SRV/Attachments" 
+                                sameFilenameAllowed="true" 
+                                instantUpload="false" 
+                                change="onFileChange"
+                                uploadComplete="onFileUploadComplete"
+                                beforeUploadStarts="onFileBeforeUpload"
+                                fileDeleted="onFileDeleted"
+                                noDataDescription="{i18n>ficheros}"/>
+						</WizardStep>
+					</Wizard>
+					<footer>
+						<OverflowToolbar>
+							<ToolbarSpacer/>
+							<Button text="{i18n>cancel}" press="handleCancelButtonPress"></Button>
+						</OverflowToolbar>
+					</footer>
+				</Page>
+				<Page id="EmployeeReview" title="{i18n>resumen}">
+					<core:Fragment fragmentName="imagina.employees.fragment.EmployeeReview" type="XML"/>
+					<!--<mvc:XMLView id="EmployeeReviewDetails" viewName="imagina.employees.view.EmployeeReview"></mvc:XMLView>-->
+					<footer>
+						<Toolbar>
+							<ToolbarSpacer></ToolbarSpacer>
+							<Button text="{i18n>save}" press="hadleSaveEmployee"></Button>
+							<Button text="{i18n>cancel}" press="handleCancelButtonPress"></Button>
+						</Toolbar>
+					</footer>
+				</Page>
+			</pages>
+		</NavContainer>
+	</App>
+</mvc:View>

@@ -1,0 +1,24 @@
+<mvc:View xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" controllerName="imagina.employees.controller.Main" displayBlock="true">
+	<Shell id="shell">
+		<App id="app">
+			<pages>
+				<Page id="page" title="{i18n>title}">
+					<content>
+						<Panel xmlns="sap.m" width="auto" expandable="true" expanded="true" id="panel0" headerText="{i18n>empleados}">
+							<content>
+								<GenericTile header="{i18n>employeeCreate}" id="tile0" headerImage="sap-icon://add-employee" class="sapUiSmallMarginEnd" press="handleCreateTilePress"/>
+								<GenericTile header="{i18n>employeeVer}" id="tile1" headerImage="sap-icon://employee-lookup" press="handleShowTilePress"/>
+							</content>
+						</Panel>
+						<Panel xmlns="sap.m" width="auto" expandable="true" expanded="true" id="panel1" headerText="{i18n>pedidos}">
+							<content>
+								<GenericTile header="{i18n>signature}" id="tile2" headerImage="sap-icon://signature" press="handleUrl">                                	
+							</GenericTile>
+							</content>
+						</Panel>
+					</content>
+				</Page>
+			</pages>
+		</App>
+	</Shell>
+</mvc:View>

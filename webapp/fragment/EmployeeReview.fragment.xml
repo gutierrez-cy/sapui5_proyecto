@@ -1,0 +1,45 @@
+<core:FragmentDefinition xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:form="sap.ui.layout.form">
+	<Panel>
+		<form:SimpleForm title="Paso1. {i18n>EmpleadoType}" minWidth="1024" editable="false" layout="ResponsiveGridLayout">
+			<form:content>
+				<Label text="{i18n>tipo}"/>
+				<Text text="{employee>/tipoEmpleado}"/>
+				<Link press="hadleEditarPaso1" text="{i18n>editar}"/>
+			</form:content>
+		</form:SimpleForm>
+	</Panel>
+	<Panel>
+		<form:SimpleForm title="Paso2. {i18n>empleadoDatos}" minWidth="1024" editable="false" layout="ResponsiveGridLayout">
+			<form:content>
+				<Label text="{i18n>name}"/>
+				<Text text="{employee>/nombre}"/>
+				<Label text="{i18n>apellidos}"/>
+				<Text text="{employee>/apellido}"/>
+				<Label text="{= ${employee>/tipoEmpleado} === 'autonomo' ? ${i18n>cif} : ${i18n>dni}}"/>
+				<Text text="{employee>/dniCif}"/>
+				<Label text="{= ${employee>/tipoEmpleado} === 'autonomo' ? ${i18n>precioDiario} : ${i18n>salarioBrutoAnual}}"/>
+				<Text text="{employee>/salario}"/>
+				<Label text="{i18n>fechaIncorporacion}"/>
+				<Text text="{path:'employee>/fechaIncorporacion',type:'sap.ui.model.type.Date'}"/>
+				<Link press="hadleEditarPaso2" text="{i18n>editar}"/>
+			</form:content>
+		</form:SimpleForm>
+	</Panel>
+	<Panel>
+		<form:SimpleForm title="Paso3. {i18n>informacionAdcional}" minWidth="1024" editable="false" layout="ResponsiveGridLayout">
+			<form:content>
+				<Label text="{i18n>comentario}"/>
+				<Text text="{employee>/comentario}"/>
+				<Label text="{i18n>documentos}"/>
+				<Text text="{employee>/numAdjunto} {i18n>files}"/>
+				<Label></Label>
+				<List items="{employee/files}">
+					<items>
+						<StandardListItem title="{DocName}"></StandardListItem>
+					</items>
+				</List>
+				<Link press="hadleEditarPaso3" text="{i18n>editar}"/>
+			</form:content>
+		</form:SimpleForm>
+	</Panel>
+</core:FragmentDefinition>

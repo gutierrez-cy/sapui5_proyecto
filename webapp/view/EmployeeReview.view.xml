@@ -1,0 +1,47 @@
+<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:html="http://www.w3.org/1999/xhtml"
+	xmlns:l="sap.ui.layout" xmlns:form="sap.ui.layout.form" xmlns:u="sap.ui.unified"
+	controllerName="imagina.employees.controller.EmployeeReview">
+	<Panel>
+		<form:SimpleForm title="Paso1. {i18n>EmpleadoType}" minWidth="1024" editable="false" layout="ResponsiveGridLayout">
+			<form:content>
+				<Label text="{i18n>tipo}"/>
+				<Text text="{employeeReview>/tipoEmpleado}"/>
+				<Link press="editarPaso1" text="{i18n>editar}"/>
+			</form:content>
+		</form:SimpleForm>
+	</Panel>
+	<Panel>
+		<form:SimpleForm title="Paso2. {i18n>empleadoDatos}" minWidth="1024" editable="false" layout="ResponsiveGridLayout">
+			<form:content>
+				<Label text="{i18n>name}"/>
+				<Text text="{employeeReview>/nombre}"/>
+				<Label text="{i18n>apellidos}"/>
+				<Text text="{employeeReview>/apellido}"/>
+				<Label text="{= ${employeeReview>/tipoEmpleado} === 'autonomo' ? ${i18n>cif} : ${i18n>dni}}"/>
+				<Text text="{employeeReview>/dniCif}"/>
+				<Label text="{= ${employeeReview>/tipoEmpleado} === 'autonomo' ? ${i18n>precioDiario} : ${i18n>salarioBrutoAnual}}"/>
+				<Text text="{employeeReview>/salario}"/>
+				<Label text="{i18n>fechaIncorporacion}"/>
+				<Text text="{path:'employeeReview>/fechaIncorporacion',type:'sap.ui.model.type.Date'}"/>
+				<Link press="editarPaso2" text="{i18n>editar}"/>
+			</form:content>
+		</form:SimpleForm>
+	</Panel>
+	<Panel>
+		<form:SimpleForm title="Paso3. {i18n>informacionAdcional}" minWidth="1024" editable="false" layout="ResponsiveGridLayout">
+			<form:content>
+				<Label text="{i18n>comentario}"/>
+				<Text text="{employeeReview>/comentario}"/>
+				<Label text="{i18n>documentos}"/>
+				<Text text="{employeeReview>/numAdjunto} {i18n>files}"/>
+				<Label></Label>
+				<List items="{employeeReview>/files}">
+					<items>
+						<StandardListItem title="{files>DocName}"></StandardListItem>
+					</items>
+				</List>
+				<Link press="editarPaso3" text="{i18n>editar}"/>
+			</form:content>
+		</form:SimpleForm>
+	</Panel>
+</mvc:View>
